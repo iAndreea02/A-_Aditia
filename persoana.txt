@@ -1,0 +1,3 @@
+{'id': 1, 'nume': 'Radu', 'prenume': 'Andreea', 'gen': 'F', 'data_programarii': '2024-12-01', 'Etaj/Sectie': 'Etajul 5, Sectia Medicina genereala', 'tipul_problemei': 'Control general'}
+{'id': 2, 'nume': 'Grigoras', 'prenume': 'Andrei', 'gen': 'M', 'data_programarii': '2024-12-02', 'Etaj/sectie': 'Etajul 7, Sectia Ortopedie', 'tipul_problemei': 'Durere de spate'}
+{'id': 3, 'nume': 'Cojan', 'prenume': 'Alin', 'gen': 'M', 'data_programarii': '2024-12-03', 'Etaj/Sectie': 'Etajul 6, Sectia Ortopedie', 'tipul_problemei': 'Fractură'}

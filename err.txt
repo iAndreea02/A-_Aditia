@@ -1,0 +1,10 @@
+if most_frequent_name == 'Unknown':
+        self.result_label.config(
+            text=f"{most_frequent_name}",
+            fg="red"
+        )
+    else:
+        self.result_label.config(
+            text=f"Bun venit {most_frequent_name}",
+            fg="green"
+        )
