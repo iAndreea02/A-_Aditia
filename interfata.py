@@ -47,21 +47,7 @@ class FacialRecognitionApp:
         )
         self.recunoastere_button.pack(pady=20)
 
-        # Butonul pentru diagnosticare
-        self.diagnosticare_button = ctk.CTkButton(
-            root,
-            text="Diagnosticare",
-            height=40,
-            width=200,
-            font=("Helvetica", 14, "bold"),
-            text_color="white",
-            fg_color="#007BFF",
-            hover_color="#0056b3",
-            corner_radius=20,
-            command=self.start_recognition_thread
-        )
-        self.diagnosticare_button.pack(pady=20)
-
+        
         # Etichetă pentru afișarea fluxului video
         self.video_label = tk.Label(root, bg="#ffffff")
         self.video_label.pack(pady=20)
@@ -110,7 +96,7 @@ class FacialRecognitionApp:
         start_time = time.time()
         cv_scaler = 4
 
-        while self.running and time.time() - start_time < 10:  # Limită de 10 secunde
+        while self.running and time.time() - start_time < 5:  # Limită de 10 secunde
             frame = self.picam2.capture_array()
             resized_frame = cv2.resize(frame, (0, 0), fx=(1 / cv_scaler), fy=(1 / cv_scaler))
             rgb_resized_frame = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)
