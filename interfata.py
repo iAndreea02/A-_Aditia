@@ -16,18 +16,18 @@ class FacialRecognitionApp:
         self.root = root
         self.root.title("Recunoaștere Facială")
         self.root.geometry("480x800")
-        self.root.configure(bg="#ffffff")
+        self.root.configure(bg="#EFEBF7")
         
         # Panoul cu mesajul de întâmpinare
-        self.message_panel = tk.Frame(root, bg="#ffffff")
+        self.message_panel = tk.Frame(root, bg="#EFEBF7")
         self.message_panel.pack(pady=10, fill="both", expand=False)
 
         # Mesajul de întâmpinare
         self.message_label = tk.Label(
             root,
-            text="Bine ai venit la Clinica!\nApasă OK pentru a începe scanarea \n pentru a afla informatii si \nDIAGNOSTICARE \n pentru a primii un diagnostic urgent!",
+            text="Bine ai venit la Clinica!\nApasă OK pentru a începe scanarea \n pentru a afla informatii !",
             font=("Comic Sans MS", 24, "bold"),
-            bg="#ffffff",
+            bg="#EFEBF7",
             fg="#007BFF"
         )
         self.message_label.pack(pady=5, fill="both", expand=False)
@@ -43,27 +43,15 @@ class FacialRecognitionApp:
             fg_color="#007BFF",
             hover_color="#0056b3",
             corner_radius=20,
-            command=self.start_recognition_thread
+            command=self.hide_button
         )
         self.recunoastere_button.pack(pady=20)
-
-        # Butonul pentru diagnosticare
-        self.diagnosticare_button = ctk.CTkButton(
-            root,
-            text="Diagnosticare",
-            height=40,
-            width=200,
-            font=("Helvetica", 14, "bold"),
-            text_color="white",
-            fg_color="#007BFF",
-            hover_color="#0056b3",
-            corner_radius=20,
-            command=self.start_recognition_thread
-        )
-        self.diagnosticare_button.pack(pady=20)
-
+        
+        
+      
+        
         # Etichetă pentru afișarea fluxului video
-        self.video_label = tk.Label(root, bg="#ffffff")
+        self.video_label = tk.Label(root, bg="#EFEBF7")
         self.video_label.pack(pady=20)
 
         # Etichetă pentru afișarea rezultatului
@@ -71,7 +59,7 @@ class FacialRecognitionApp:
             root,
             text="",
             font=("Helvetica", 16, "bold"),
-            bg="#ffffff",
+            bg="#EFEBF7",
             fg="black"
         )
         self.result_label.pack(pady=10)
@@ -82,10 +70,22 @@ class FacialRecognitionApp:
             "Andrei": {'id': 2, 'nume': 'Grigoras', 'prenume': 'Andrei', 'gen': 'M', 'data_programarii': '2024-12-02', 'Etaj/Sectie': 'Etajul 7, Sectia Ortopedie', 'tipul_problemei': 'Durere de spate'},
             "Alin": {'id': 3, 'nume': 'Cojan', 'prenume': 'Alin', 'gen': 'M', 'data_programarii': '2024-12-03', 'Etaj/Sectie': 'Etajul 6, Sectia Ortopedie', 'tipul_problemei': 'Fractură'}
         }
+        
+        self.image = Image.open("att.png")  # Calea către imaginea dorită
+        self.image = self.image.resize((200, 200))  # Redimensionăm imaginea
+        self.image_tk = ImageTk.PhotoImage(self.image)
+
+        self.image_label = tk.Label(root, image=self.image_tk, bg="#ffffff")
+        self.image_label.pack(pady=20)
+        self.image_label.pack_forget()
 
         # Variabile de control
         self.running = False
         self.picam2 = None
+
+    def hide_button(self):
+        self.recunoastere_button.pack_forget()
+        self.start_recognition_thread()# Ascunde butonul
 
     def start_recognition_thread(self):
         """Pornirea procesului de recunoaștere facială într-un fir separat."""
@@ -160,6 +160,8 @@ class FacialRecognitionApp:
                     text=f"Persoana necunoscută!",
                     fg="red"
                 )
+                
+                self.blink_image()
             else:
                 # Căutăm datele persoanei în dicționar
                 patient_info = self.patient_data.get(most_frequent_name)
@@ -183,6 +185,12 @@ class FacialRecognitionApp:
         # Oprește fluxul video
         self.running = False
 
+    def blink_image(self):
+        self.image_label.pack(pady=20)  # Arată imaginea
+        
+
+        
+    
     def on_close(self):
         """Închidere corectă a aplicației."""
         self.running = False
